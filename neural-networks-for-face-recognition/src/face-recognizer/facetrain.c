@@ -101,12 +101,15 @@ int list_errors;
       if (evaluate_performance(net, &val)) {
         //匹配成功，计数器加1
         correct++;
-      } else if (list_errors) {
-        printf("%s - outputs ", NAME(il->list[i]));
+      } 
+      else if (list_errors) 
+      {
+        printf("%s", NAME(il->list[i]));
 
-        for (j = 1; j <= net->output_n; j++) {
-          printf("%.3f ", net->output_units[j]);
-        }
+        // for (j = 1; j <= net->output_n; j++) 
+        // {
+        //   printf("%.3f ", net->output_units[j]);
+        // }
         printf("\n");
       }
       err += val;
@@ -542,11 +545,11 @@ char *netname;
   fflush(stdout);
   if (list_errors) {
     printf(
-        "\nFailed to classify the following images from the training set:\n");
+        "\n训练集中的这些图片分类失败:\n");
     performance_on_imagelist(net, trainlist, 1);
-    printf("\nFailed to classify the following images from the test set 1:\n");
+    printf("\n测试集1中的这些图片分类失败:\n");
     performance_on_imagelist(net, test1list, 1);
-    printf("\nFailed to classify the following images from the test set 2:\n");
+    printf("\n测试集2中的这些图片分类失败:\n");
     performance_on_imagelist(net, test2list, 1);
   }
 
