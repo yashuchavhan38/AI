@@ -162,9 +162,9 @@ int list_errors;
       /*** See if it got it right. ***/
       if (evaluate_performance(net, &val)) {
         correct++;
-        printf("识别成功 😎\n");
+        printf("😎\n");
       } else {
-        printf("识别失败 😡\n");
+        printf("😡\n");
       }
 
       printf("\n");

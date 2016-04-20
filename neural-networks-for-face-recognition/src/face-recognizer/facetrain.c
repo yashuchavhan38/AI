@@ -158,50 +158,307 @@ int list_errors;
       // 输出图片的名称
       printf("图片名称：%s\n", NAME(il->list[i]));
 
-      // 打印目标值
-      printf("目标值：");
-      for (j = 1; j <= net->output_n; j++) {
-        printf("%.3f ", net->target[j]);
-      }
+      // // 打印目标值
+      // printf("目标值：");
+      // for (j = 1; j <= net->output_n; j++) {
+      //   printf("%.3f ", net->target[j]);
+      // }
 
-      // 输出目标朝向
-      if (net->target[1] > 0.5) {
-        printf("左");
-      } else if (net->target[2] > 0.5) {
-        printf("右");
-      } else if (net->target[3] > 0.5) {
-        printf("前");
-      } else if (net->target[4] > 0.5) {
-        printf("上");
-      }
+      // // 输出目标人物
+      // if (net->target[1] > 0.5) {
+      //   printf("an2i");
+      // } else if (net->target[2] > 0.5) {
+      //   printf("at33");
+      // } else if (net->target[3] > 0.5) {
+      //   printf("boland");
+      // } else if (net->target[4] > 0.5) {
+      //   printf("bpm");
+      // } else if (net->target[5] > 0.5) {
+      //   printf("ch4f");
+      // } else if (net->target[6] > 0.5) {
+      //   printf("cheyer");
+      // } else if (net->target[7] > 0.5) {
+      //   printf("choon");
+      // } else if (net->target[8] > 0.5) {
+      //   printf("danieln");
+      // } else if (net->target[9] > 0.5) {
+      //   printf("glickman");
+      // } else if (net->target[10] > 0.5) {
+      //   printf("karyadi");
+      // } else if (net->target[11] > 0.5) {
+      //   printf("kawamura");
+      // } else if (net->target[12] > 0.5) {
+      //   printf("kk49");
+      // } else if (net->target[13] > 0.5) {
+      //   printf("megak");
+      // } else if (net->target[14] > 0.5) {
+      //   printf("mitchell");
+      // } else if (net->target[15] > 0.5) {
+      //   printf("night");
+      // } else if (net->target[16] > 0.5) {
+      //   printf("phoebe");
+      // } else if (net->target[17] > 0.5) {
+      //   printf("saavik");
+      // } else if (net->target[18] > 0.5) {
+      //   printf("steffi");
+      // } else if (net->target[19] > 0.5) {
+      //   printf("sz24");
+      // } else if (net->target[20] > 0.5) {
+      //   printf("tammo");
+      // }
+      
+      // printf("\n");
 
-      printf("\n");
+      // // 打印输出层单元输出值
+      // printf("输出值：");
+      // for (j = 1; j <= net->output_n; j++) {
+      //   printf("%.3f ", net->output_units[j]);
+      // }
 
-      // 打印输出层单元输出值
-      printf("输出值：");
-      for (j = 1; j <= net->output_n; j++) {
-        printf("%.3f ", net->output_units[j]);
-      }
-
-      // 左 left      <0.9, 0.1, 0.1, 0.1>
-      // 右 right     <0.1, 0.9, 0.1, 0.1>
-      // 前 straight  <0.1, 0.1, 0.9, 0.1>
-      // 上 up        <0.1, 0.1, 0.1, 0.9>
-      // 输出预测朝向
+      // 1 an2i      <.9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 2 at33      <.1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 3 boland    <.1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 4 bpm       <.1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 5 ch4f      <.1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 6 cheyer    <.1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 7 choon     <.1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 8 danieln   <.1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 9 glickman  <.1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 10 karyadi  <.1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 11 kawamura <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 12 kk49     <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1, .1>
+      // 13 megak    <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1, .1>
+      // 14 mitchell <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1, .1>
+      // 15 night    <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1, .1>
+      // 16 phoebe   <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1, .1>
+      // 17 saavik   <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1, .1>
+      // 18 steffi   <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1, .1>
+      // 19 sz24     <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9, .1>
+      // 20 tammo    <.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .9>
+      
+      // 输出预测人物 
       if (net->output_units[1] > 0.5 && net->output_units[2] <= 0.5 &&
-          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5) {
-        printf("左");
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 an2i");
       } else if (net->output_units[1] <= 0.5 && net->output_units[2] > 0.5 &&
-                 net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5) {
-        printf("右");
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 at33");
+      } else if(net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] > 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 boland");
       } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
-                 net->output_units[3] > 0.5 && net->output_units[4] <= 0.5) {
-        printf("前");
+          net->output_units[3] <= 0.5 && net->output_units[4] > 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 bpm");
       } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
-                 net->output_units[3] <= 0.5 && net->output_units[4] > 0.5) {
-        printf("上");
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] > 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 ch4f");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] > 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 cheyer");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] > 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 choon");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] > 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 danieln");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] > 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 glickman");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] > 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 karyadi");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] > 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 kawamura");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] > 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 kk49");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] > 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 megak");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] > 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 mitchell");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] > 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 night");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] > 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 phoebe");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] > 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 saavik");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] > 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 steffi");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] > 0.5 && net->output_units[20] <= 0.5) {
+        printf("我猜他是 sz24");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5 &&
+          net->output_units[5] <= 0.5 && net->output_units[6] <= 0.5 &&
+          net->output_units[7] <= 0.5 && net->output_units[8] <= 0.5 &&
+          net->output_units[9] <= 0.5 && net->output_units[10] <= 0.5 &&
+          net->output_units[11] <= 0.5 && net->output_units[12] <= 0.5 &&
+          net->output_units[13] <= 0.5 && net->output_units[14] <= 0.5 &&
+          net->output_units[15] <= 0.5 && net->output_units[16] <= 0.5 &&
+          net->output_units[17] <= 0.5 && net->output_units[18] <= 0.5 &&
+          net->output_units[19] <= 0.5 && net->output_units[20] > 0.5) {
+        printf("我猜他是 tammo");
       } else {
-        printf("无法识别");
+        printf("我不知道他是谁");
       }
 
       printf(" ");
@@ -209,9 +466,9 @@ int list_errors;
       /*** See if it got it right. ***/
       if (evaluate_performance(net, &val)) {
         correct++;
-        printf("识别成功 😎\n");
+        printf("😎\n");
       } else {
-        printf("识别失败 😡\n");
+        printf("😡\n");
       }
 
       printf("\n");
@@ -340,12 +597,12 @@ char *netname;
 
   /************** 预测结果 ****************************/
 
-  // // 输出测试集中每张图片的匹配情况
-  // printf("迭代结束后的匹配情况：\n\n");
-  // printf("测试集1：\n");
-  // result_on_imagelist(net, test1list, 0);
-  // printf("测试集2：\n");
-  // result_on_imagelist(net, test2list, 0);
+  // 输出测试集中每张图片的匹配情况
+  printf("迭代结束后的匹配情况：\n\n");
+  printf("测试集1：\n");
+  result_on_imagelist(net, test1list, 0);
+  printf("测试集2：\n");
+  result_on_imagelist(net, test2list, 0);
 
   /** Save the trained network **/
   if (epochs > 0) {
