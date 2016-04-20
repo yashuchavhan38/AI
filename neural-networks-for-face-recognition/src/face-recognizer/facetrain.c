@@ -83,7 +83,7 @@ int list_errors;
 
   err = 0.0;
   correct = 0;
-  n = il->n;
+  n = il->n;  // n：图片集中图片张数
   if (n > 0) {
     // 遍历图片列表中每张图片
     for (i = 0; i < n; i++) {
@@ -112,10 +112,10 @@ int list_errors;
         // }
         printf("\n");
       }
-      err += val;
+      err += val; // 列表中所有图片 输出层 均方误差之和
     }
 
-    err = err / (double)n;
+    err = err / (double)n;  // 列表中所有图片 输出层 均方误差之和 的平均数
 
     if (!list_errors)
       /* bthom==================================
@@ -565,16 +565,18 @@ char *netname;
     for (i = 0; i < train_n; i++) {
 
       /** Set up input units on net with image i **/
+      // 用训练集中图片i来设置输入层单元
       load_input_with_image(trainlist->list[i], net);
 
       /** Set up target vector for image i **/
+      // 为图片i设置目标向量
       load_target(trainlist->list[i], net);
 
       /** Run backprop, learning rate 0.3, momentum 0.3 **/
       /** 运行反向传播算法，学习速率0.3，冲量0.3 **/
       bpnn_train(net, 0.3, 0.3, &out_err, &hid_err);
 
-      sumerr += (out_err + hid_err);
+      sumerr += (out_err + hid_err);  // 训练集中每张图片输入网络的 输出层 和 隐藏层 的误差之累积
     }
     printf("误差和: %g \n", sumerr);
 
@@ -600,12 +602,12 @@ char *netname;
 
   /************** 预测结果 ****************************/
 
-  // // 输出测试集中每张图片的匹配情况
-  // printf("迭代结束后的匹配情况：\n\n");
-  // printf("测试集1：\n\n");
-  // result_on_imagelist(net, test1list, 0);
-  // printf("测试集2：\n\n");
-  // result_on_imagelist(net, test2list, 0);
+  // 输出测试集中每张图片的匹配情况
+  printf("迭代结束后的匹配情况：\n\n");
+  printf("测试集1：\n\n");
+  result_on_imagelist(net, test1list, 0);
+  printf("测试集2：\n\n");
+  result_on_imagelist(net, test2list, 0);
 
   /** Save the trained network **/
   if (epochs > 0) {
