@@ -1,4 +1,4 @@
-/* 太阳眼镜识别器
+/* 表情识别器
  ******************************************************************
  * HISTORY
  * 15-Oct-94  Jeff Shufelt (js), Carnegie Mellon University
@@ -13,11 +13,11 @@
  */
 
 /*
-███████ ██    ██ ███    ██  ██████  ██       █████  ███████ ███████
-██      ██    ██ ████   ██ ██       ██      ██   ██ ██      ██
-███████ ██    ██ ██ ██  ██ ██   ███ ██      ███████ ███████ ███████
-     ██ ██    ██ ██  ██ ██ ██    ██ ██      ██   ██      ██      ██
-███████  ██████  ██   ████  ██████  ███████ ██   ██ ███████ ███████
+███████ ██   ██ ██████  ██████  ███████ ███████ ███████ ██  ██████  ███    ██
+██       ██ ██  ██   ██ ██   ██ ██      ██      ██      ██ ██    ██ ████   ██
+█████     ███   ██████  ██████  █████   ███████ ███████ ██ ██    ██ ██ ██  ██
+██       ██ ██  ██      ██   ██ ██           ██      ██ ██ ██    ██ ██  ██ ██
+███████ ██   ██ ██      ██   ██ ███████ ███████ ███████ ██  ██████  ██   ████
 */
 
 #include "backprop.h"
@@ -29,40 +29,46 @@
 extern char *strcpy();
 extern void exit();
 
+typedef int bool;
+#define false 0
+#define true 1
+
+// 评估有没有预测对
 int evaluate_performance(net, err) BPNN *net;
 double *err;
 {
+  bool flag = true; // 样例匹配成功为true
+
   double delta;
 
   delta = net->target[1] - net->output_units[1];
 
   *err = (0.5 * delta * delta);
 
-  /*** If the target unit is on... ***/
-  if (net->target[1] > 0.5) {
-
-    /*** If the output unit is on, then we correctly recognized me! ***/
-    if (net->output_units[1] > 0.5) {
-      return (1);
-
-      /*** otherwise, we didn't think it was me... ***/
-    } else {
-      return (0);
-    }
-
-    /*** Else, the target unit is off... ***/
-  } else {
-
-    /*** If the output unit is on, then we mistakenly thought it was me ***/
-    if (net->output_units[1] > 0.5) {
-      return (0);
-
-      /*** else, we correctly realized that it wasn't me ***/
-    } else {
-      return (1);
+  for (int j = 1; j <= net->output_n; j++) {
+    /*** If the target unit is on... ***/
+    if (net->target[j] > 0.5) {
+      if (net->output_units[j] > 0.5) {
+        /*** If the output unit is on, then we correctly recognized me! ***/
+      } else /*** otherwise, we didn't think it was me... ***/
+      {
+        flag = false;
+      }
+    } else /*** Else, the target unit is off... ***/
+    {
+      if (net->output_units[j] > 0.5) {
+        /*** If the output unit is on, then we mistakenly thought it was me ***/
+        flag = false;
+      } else {
+        /*** else, we correctly realized that it wasn't me ***/
+      }
     }
   }
-  return 0;
+
+  if (flag)
+    return 1;
+  else
+    return 0;
 }
 
 /*** Computes the performance of a net on the images in the imagelist. ***/
@@ -79,6 +85,7 @@ int list_errors;
   correct = 0;
   n = il->n;
   if (n > 0) {
+    // 遍历图片列表中每张图片
     for (i = 0; i < n; i++) {
 
       /*** Load the image into the input layer. **/
@@ -100,8 +107,7 @@ int list_errors;
         for (j = 1; j <= net->output_n; j++) {
           printf("%.3f ", net->output_units[j]);
         }
-
-        putchar('\n');
+        printf("\n");
       }
       err += val;
     }
@@ -138,12 +144,15 @@ int list_errors;
   if (n > 0) {
     for (i = 0; i < n; i++) {
       /*** Load the image into the input layer. **/
+      // 装载图片到输入层
       load_input_with_image(il->list[i], net);
 
       /*** Run the net on this input. **/
+      // 在此输入的基础上运行这个网络
       bpnn_feedforward(net);
 
       /*** Set up the target vector for this image. **/
+      // 设置目标向量
       load_target(il->list[i], net);
 
       // 输出图片的名称
@@ -154,6 +163,18 @@ int list_errors;
       for (j = 1; j <= net->output_n; j++) {
         printf("%.3f ", net->target[j]);
       }
+
+      // 输出目标表情
+      if (net->target[1] > 0.5) {
+        printf("快乐");
+      } else if (net->target[2] > 0.5) {
+        printf("中性");
+      } else if (net->target[3] > 0.5) {
+        printf("伤心");
+      } else if (net->target[4] > 0.5) {
+        printf("愤怒");
+      }
+
       printf("\n");
 
       // 打印输出层单元输出值
@@ -161,17 +182,28 @@ int list_errors;
       for (j = 1; j <= net->output_n; j++) {
         printf("%.3f ", net->output_units[j]);
       }
-      
-      // 输出戴没戴眼镜的预测结果
-      if(net->output_units[1] > 0.5)
-      {
-        printf("我猜他戴眼镜");
+
+      // happy       <0.9, 0.1, 0.1, 0.1>
+      // neutral     <0.1, 0.9, 0.1, 0.1>
+      // sad         <0.1, 0.1, 0.9, 0.1>
+      // angry       <0.1, 0.1, 0.1, 0.9>
+      // 输出预测表情
+      if (net->output_units[1] > 0.5 && net->output_units[2] <= 0.5 &&
+          net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5) {
+        printf("他看起来有点 快乐");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] > 0.5 &&
+                 net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5) {
+        printf("他面无表情 ");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+                 net->output_units[3] > 0.5 && net->output_units[4] <= 0.5) {
+        printf("他看起来有点 伤心");
+      } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
+                 net->output_units[3] <= 0.5 && net->output_units[4] > 0.5) {
+        printf("他看起来有点 愤怒");
+      } else {
+        printf("我看不透他");
       }
-      else
-      {
-        printf("我猜他不戴眼镜");
-      }
-      
+
       printf(" ");
 
       /*** See if it got it right. ***/
@@ -221,10 +253,10 @@ char *netname;
       imgsize = ROWS(iimg) * COLS(iimg);
       /* bthom ===========================
         make a net with:
-          imgsize inputs, 4 hiden units, and 1 output unit
-    图片规模的输入层单元个数，4个隐藏层单元，1个输出层单元
+          imgsize inputs, 6 hiden units, and 4 output unit
+    图片规模的输入层单元个数，6个隐藏层单元，4个输出层单元
           */
-      net = bpnn_create(imgsize, 4, 1);
+      net = bpnn_create(imgsize, 6, 4);
     } else {
       printf("Need some images to train on, use -t\n");
       return -1;
@@ -304,6 +336,9 @@ char *netname;
   }
   printf("\n");
   fflush(stdout);
+  /************** 迭代结束 ****************************/
+
+  /************** 预测结果 ****************************/
 
   // // 输出测试集中每张图片的匹配情况
   // printf("迭代结束后的匹配情况：\n\n");
@@ -429,6 +464,7 @@ char *argv[];
   printf("%d images in test2 set\n", test2list->n);
 
   /*** If we've got at least one image to train on, go train the net ***/
+  // 假如我们至少有1张图片来训练，那么就开始训练吧！
   backprop_face(trainlist, test1list, test2list, epochs, savedelta, netname,
                 list_errors);
 
