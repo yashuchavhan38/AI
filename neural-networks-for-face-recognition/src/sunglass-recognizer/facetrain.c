@@ -161,6 +161,17 @@ int list_errors;
       for (j = 1; j <= net->output_n; j++) {
         printf("%.3f ", net->output_units[j]);
       }
+      
+      // 输出戴没戴眼镜的预测结果
+      if(net->output_units[1] > 0.5)
+      {
+        printf("我猜他戴眼镜");
+      }
+      else
+      {
+        printf("我猜他不戴眼镜");
+      }
+      
       printf(" ");
 
       /*** See if it got it right. ***/

@@ -157,6 +157,17 @@ int list_errors;
       for (j = 1; j <= net->output_n; j++) {
         printf("%.3f ", net->output_units[j]);
       }
+      
+      // 输出特定人物的预测结果
+      if(net->output_units[1] > 0.5)
+      {
+        printf("我猜他是我们要找的人");
+      }
+      else
+      {
+        printf("我猜他不是我们要找的人");
+      }
+      
       printf(" ");
 
       /*** See if it got it right. ***/

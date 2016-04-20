@@ -599,9 +599,9 @@ char *netname;
 
   // 输出测试集中每张图片的匹配情况
   printf("迭代结束后的匹配情况：\n\n");
-  printf("测试集1：\n");
+  printf("测试集1：\n\n");
   result_on_imagelist(net, test1list, 0);
-  printf("测试集2：\n");
+  printf("测试集2：\n\n");
   result_on_imagelist(net, test2list, 0);
 
   /** Save the trained network **/

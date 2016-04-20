@@ -190,18 +190,18 @@ int list_errors;
       // 输出预测朝向
       if (net->output_units[1] > 0.5 && net->output_units[2] <= 0.5 &&
           net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5) {
-        printf("左");
+        printf("我猜他面朝 左");
       } else if (net->output_units[1] <= 0.5 && net->output_units[2] > 0.5 &&
                  net->output_units[3] <= 0.5 && net->output_units[4] <= 0.5) {
-        printf("右");
+        printf("我猜他面朝 右");
       } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
                  net->output_units[3] > 0.5 && net->output_units[4] <= 0.5) {
-        printf("前");
+        printf("我猜他面朝 前");
       } else if (net->output_units[1] <= 0.5 && net->output_units[2] <= 0.5 &&
                  net->output_units[3] <= 0.5 && net->output_units[4] > 0.5) {
-        printf("上");
+        printf("我猜他面朝 上");
       } else {
-        printf("无法识别");
+        printf("我不知道他面朝哪");
       }
 
       printf(" ");
@@ -340,12 +340,12 @@ char *netname;
 
   /************** 预测结果 ****************************/
 
-  // // 输出测试集中每张图片的匹配情况
-  // printf("迭代结束后的匹配情况：\n\n");
-  // printf("测试集1：\n");
-  // result_on_imagelist(net, test1list, 0);
-  // printf("测试集2：\n");
-  // result_on_imagelist(net, test2list, 0);
+  // 输出测试集中每张图片的匹配情况
+  printf("迭代结束后的匹配情况：\n\n");
+  printf("测试集1：\n\n");
+  result_on_imagelist(net, test1list, 0);
+  printf("测试集2：\n\n");
+  result_on_imagelist(net, test2list, 0);
 
   /** Save the trained network **/
   if (epochs > 0) {
