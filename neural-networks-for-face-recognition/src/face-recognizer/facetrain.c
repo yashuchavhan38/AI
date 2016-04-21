@@ -38,13 +38,18 @@ int evaluate_performance(net, err) BPNN *net;
 double *err;
 {
   bool flag = true; // 样例匹配成功为true
-
+  
+  *err = 0.0;
   double delta;
-
-  delta = net->target[1] - net->output_units[1];
-
-  *err = (0.5 * delta * delta);
-
+  
+  // 计算输出层均方误差之和
+  for (int j = 1; j <= net->output_n; j++) 
+  {
+    delta = net->target[j] - net->output_units[j];
+    *err += (0.5 * delta * delta);
+  }
+  
+  
   for (int j = 1; j <= net->output_n; j++) {
     /*** If the target unit is on... ***/
     if (net->target[j] > 0.5) {
@@ -576,7 +581,7 @@ char *netname;
       /** 运行反向传播算法，学习速率0.3，冲量0.3 **/
       bpnn_train(net, 0.3, 0.3, &out_err, &hid_err);
 
-      sumerr += (out_err + hid_err);  // 训练集中每张图片输入网络的 输出层 和 隐藏层 的误差之累积
+      sumerr += (out_err + hid_err);  // 训练集中所有图片作为输入，网络的 输出层 和 隐藏层 的误差之和
     }
     printf("误差和: %g \n", sumerr);
 

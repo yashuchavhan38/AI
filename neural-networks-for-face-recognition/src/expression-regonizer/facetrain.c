@@ -39,11 +39,15 @@ double *err;
 {
   bool flag = true; // 样例匹配成功为true
 
+  *err = 0.0;
   double delta;
-
-  delta = net->target[1] - net->output_units[1];
-
-  *err = (0.5 * delta * delta);
+  
+  // 计算输出层均方误差之和
+  for (int j = 1; j <= net->output_n; j++) 
+  {
+    delta = net->target[j] - net->output_units[j];
+    *err += (0.5 * delta * delta);
+  }
 
   for (int j = 1; j <= net->output_n; j++) {
     /*** If the target unit is on... ***/

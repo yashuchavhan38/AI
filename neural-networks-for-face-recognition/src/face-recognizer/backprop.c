@@ -272,6 +272,7 @@ int nj;
 
   errsum = 0.0;
   
+  // 遍历输出层单元
   for (j = 1; j <= nj; j++) 
   {
     o = output[j];
