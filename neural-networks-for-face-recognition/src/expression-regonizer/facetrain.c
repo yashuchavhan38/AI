@@ -278,7 +278,7 @@ char *netname;
   /*** 迭代前输出测试表现 ***/
   /*** Print out performance before any epochs have been completed. ***/
   printf("\n迭代前：\n");
-  printf("误差和：0.0\n");
+  printf("训练集误差和：0.0\n");
   printf("评估训练集的表现： ");
   performance_on_imagelist(net, trainlist, 0);
   printf("评估测试集1的表现：");
@@ -320,7 +320,7 @@ char *netname;
 
       sumerr += (out_err + hid_err);
     }
-    printf("误差和: %g \n", sumerr);
+    printf("训练集误差和: %g \n", sumerr);
 
     // 评估测试集，测试集1，测试集2 的表现
     /*** Evaluate performance on train, test, test2, and print perf ***/
