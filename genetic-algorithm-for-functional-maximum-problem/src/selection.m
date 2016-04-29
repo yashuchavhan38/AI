@@ -6,10 +6,10 @@
 function selection(population_size, chromosome_size, elitism)
 global population;      % 前代种群
 global population_new;  % 新一代种群
-global fitness_table;   % 种群积累适应度
+global fitness_sum;     % 种群积累适应度
 
 for i=1:population_size
-    r = rand * fitness_table(population_size);  % 生成一个随机数，在[0,总适应度]之间
+    r = rand * fitness_sum(population_size);  % 生成一个随机数，在[0,总适应度]之间
     first = 1;
     last = population_size;
     mid = round((last+first)/2);
@@ -17,9 +17,9 @@ for i=1:population_size
     
     % 排中法选择个体
     while (first <= last) && (idx == -1) 
-        if r > fitness_table(mid)
+        if r > fitness_sum(mid)
             first = mid;
-        elseif r < fitness_table(mid)
+        elseif r < fitness_sum(mid)
             last = mid;     
         else
             idx = mid;

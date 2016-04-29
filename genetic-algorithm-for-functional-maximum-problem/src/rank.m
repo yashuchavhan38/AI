@@ -4,7 +4,7 @@
 
 function rank(population_size, chromosome_size)
 global fitness_value;   % 种群适应度
-global fitness_table;   % 种群累计适应度
+global fitness_sum;     % 种群累计适应度
 global fitness_average;
 global best_fitness;
 global best_individual;
@@ -13,7 +13,7 @@ global population;
 global G;
 
 for i=1:population_size    
-    fitness_table(i) = 0.;
+    fitness_sum(i) = 0.;
 end
 
 min_index = 1;
@@ -47,17 +47,17 @@ for i=1:population_size
     end
 end
 
-% fitness_table(i) = 前i个个体的适应度之和
+% fitness_sum(i) = 前i个个体的适应度之和
 for i=1:population_size
     if i==1
-        fitness_table(i) = fitness_table(i) + fitness_value(i);    
+        fitness_sum(i) = fitness_sum(i) + fitness_value(i);    
     else
-        fitness_table(i) = fitness_table(i-1) + fitness_value(i);
+        fitness_sum(i) = fitness_sum(i-1) + fitness_value(i);
     end
 end
 
 % fitness_average(G) = 第G次迭代 个体的平均适应度
-fitness_average(G) = fitness_table(population_size)/population_size;
+fitness_average(G) = fitness_sum(population_size)/population_size;
 
 % 更新最大适应度和对应的迭代次数，保存最佳个体(最佳个体的适应度最大)
 if fitness_value(population_size) > best_fitness
