@@ -1,20 +1,20 @@
-% µ¥µã½»²æ²Ù×÷
-% population_size: ÖÖÈº´óĞ¡
-% chromosome_size: È¾É«Ìå³¤¶È
-% cross_rate: ½»²æ¸ÅÂÊ
+% å•ç‚¹äº¤å‰æ“ä½œ
+% population_size: ç§ç¾¤å¤§å°
+% chromosome_size: æŸ“è‰²ä½“é•¿åº¦
+% cross_rate: äº¤å‰æ¦‚ç‡
 
 function crossover(population_size, chromosome_size, cross_rate)
 global population;
 
-% ²½³¤Îª2±éÀúÖÖÈº
+% æ­¥é•¿ä¸º2éå†ç§ç¾¤
 for i=1:2:population_size
-    % rand<½»²æ¸ÅÂÊ£¬¶ÔÁ½¸ö¸öÌå½øĞĞ½»²æ²Ù×÷
+    % rand<äº¤å‰æ¦‚ç‡ï¼Œå¯¹ä¸¤ä¸ªä¸ªä½“è¿›è¡Œäº¤å‰æ“ä½œ
     if(rand < cross_rate)
         cross_position = round(rand * chromosome_size);
         if (cross_position == 0 || cross_position == 1)
             continue;
         end
-        % ¶Ô cross_position¼°Ö®ºóµÄ¶ş½øÖÆ´®½øĞĞ½»»»
+        % å¯¹ cross_positionåŠä¹‹åçš„äºŒè¿›åˆ¶ä¸²è¿›è¡Œäº¤æ¢
         for j=cross_position:chromosome_size
             temp = population(i,j);
             population(i,j) = population(i+1,j);

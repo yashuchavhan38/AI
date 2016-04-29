@@ -1,16 +1,16 @@
-% µ¥µã±äÒì²Ù×÷
-% population_size: ÖÖÈº´óĞ¡
-% chromosome_size: È¾É«Ìå³¤¶È
-% mutate_rate: ±äÒì¸ÅÂÊ
+% å•ç‚¹å˜å¼‚æ“ä½œ
+% population_size: ç§ç¾¤å¤§å°
+% chromosome_size: æŸ“è‰²ä½“é•¿åº¦
+% mutate_rate: å˜å¼‚æ¦‚ç‡
 
 function mutation(population_size, chromosome_size, mutate_rate)
 global population;
 
 for i=1:population_size
     if rand < mutate_rate
-        mutate_position = round(rand*chromosome_size);  % ±äÒìÎ»ÖÃ
+        mutate_position = round(rand*chromosome_size);  % å˜å¼‚ä½ç½®
         if mutate_position == 0
-            % Èô±äÒìÎ»ÖÃÎª0£¬²»±äÒì
+            % è‹¥å˜å¼‚ä½ç½®ä¸º0ï¼Œä¸å˜å¼‚
             continue;
         end
         population(i,mutate_position) = 1 - population(i, mutate_position);

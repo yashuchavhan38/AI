@@ -1,5 +1,5 @@
-%打印算法迭代过程
-%generation_size: 迭代次数
+%鎵撳嵃绠楁硶杩唬杩囩▼
+%generation_size: 杩唬娆℃暟
 
 function plotGA(generation_size)
 global fitness_average;
