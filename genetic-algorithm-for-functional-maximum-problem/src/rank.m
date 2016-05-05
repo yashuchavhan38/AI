@@ -1,10 +1,10 @@
-% å¯¹ä¸ªä½“æŒ‰é€‚åº”åº¦å¤§å°è¿›è¡ŒæŽ’åºï¼Œå¹¶ä¸”ä¿å­˜æœ€ä½³ä¸ªä½“
-% population_size: ç§ç¾¤å¤§å°
-% chromosome_size: æŸ“è‰²ä½“é•¿åº¦
+% ¶Ô¸öÌå°´ÊÊÓ¦¶È´óÐ¡½øÐÐÅÅÐò£¬²¢ÇÒ±£´æ×î¼Ñ¸öÌå
+% population_size: ÖÖÈº´óÐ¡
+% chromosome_size: È¾É«Ìå³¤¶È
 
 function rank(population_size, chromosome_size)
-global fitness_value;   % ç§ç¾¤é€‚åº”åº¦
-global fitness_sum;     % ç§ç¾¤ç´¯è®¡é€‚åº”åº¦
+global fitness_value;   % ÖÖÈºÊÊÓ¦¶È
+global fitness_sum;     % ÖÖÈºÀÛ¼ÆÊÊÓ¦¶È
 global fitness_average;
 global best_fitness;
 global best_individual;
@@ -20,9 +20,9 @@ min_index = 1;
 temp = 1;
 temp_chromosome(chromosome_size)=0;
 
-% éåŽ†ç§ç¾¤ 
-% å†’æ³¡æŽ’åº
-% æœ€åŽpopulation(i)çš„é€‚åº”åº¦éšié€’å¢žè€Œé€’å¢žï¼Œpopulation(1)æœ€å°ï¼Œpopulation(population_size)æœ€å¤§
+% ±éÀúÖÖÈº 
+% Ã°ÅÝÅÅÐò
+% ×îºópopulation(i)µÄÊÊÓ¦¶ÈËæiµÝÔö¶øµÝÔö£¬population(1)×îÐ¡£¬population(population_size)×î´ó
 for i=1:population_size
     min_index = i;
     for j = i+1:population_size
@@ -32,13 +32,13 @@ for i=1:population_size
     end
     
     if min_index ~= i
-        % äº¤æ¢ fitness_value(i) å’Œ fitness_value(min_index) çš„å€¼
+        % ½»»» fitness_value(i) ºÍ fitness_value(min_index) µÄÖµ
         temp = fitness_value(i);
         fitness_value(i) = fitness_value(min_index);
         fitness_value(min_index) = temp;
-        % æ­¤æ—¶ fitness_value(i) çš„é€‚åº”åº¦åœ¨[i,population_size]ä¸Šæœ€å°
+        % ´ËÊ± fitness_value(i) µÄÊÊÓ¦¶ÈÔÚ[i,population_size]ÉÏ×îÐ¡
         
-        % äº¤æ¢ population(i) å’Œ population(min_index) çš„æŸ“è‰²ä½“ä¸²
+        % ½»»» population(i) ºÍ population(min_index) µÄÈ¾É«Ìå´®
         for k = 1:chromosome_size
             temp_chromosome(k) = population(i,k);
             population(i,k) = population(min_index,k);
@@ -47,7 +47,7 @@ for i=1:population_size
     end
 end
 
-% fitness_sum(i) = å‰iä¸ªä¸ªä½“çš„é€‚åº”åº¦ä¹‹å’Œ
+% fitness_sum(i) = Ç°i¸ö¸öÌåµÄÊÊÓ¦¶ÈÖ®ºÍ
 for i=1:population_size
     if i==1
         fitness_sum(i) = fitness_sum(i) + fitness_value(i);    
@@ -56,10 +56,10 @@ for i=1:population_size
     end
 end
 
-% fitness_average(G) = ç¬¬Gæ¬¡è¿­ä»£ ä¸ªä½“çš„å¹³å‡é€‚åº”åº¦
+% fitness_average(G) = µÚG´Îµü´ú ¸öÌåµÄÆ½¾ùÊÊÓ¦¶È
 fitness_average(G) = fitness_sum(population_size)/population_size;
 
-% æ›´æ–°æœ€å¤§é€‚åº”åº¦å’Œå¯¹åº”çš„è¿­ä»£æ¬¡æ•°ï¼Œä¿å­˜æœ€ä½³ä¸ªä½“(æœ€ä½³ä¸ªä½“çš„é€‚åº”åº¦æœ€å¤§)
+% ¸üÐÂ×î´óÊÊÓ¦¶ÈºÍ¶ÔÓ¦µÄµü´ú´ÎÊý£¬±£´æ×î¼Ñ¸öÌå(×î¼Ñ¸öÌåµÄÊÊÓ¦¶È×î´ó)
 if fitness_value(population_size) > best_fitness
     best_fitness = fitness_value(population_size);
     best_generation = G;
