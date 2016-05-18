@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <utility>
 #include <vector>
+#include <fstream>
 
 #include <ctype.h>
 
@@ -35,7 +36,6 @@ using namespace std;
 #define GM_OFF_BOARD  (1)
 
 vector<pair<int, int> > Move;
-vector<pair<int, int> >::iterator itrMove;
 
 // 定义
 
@@ -133,7 +133,8 @@ public:
 	float GetCost( PuzzleState &successor );
 	bool IsSameState( PuzzleState &rhs );
 	
-	void PrintNodeInfo(); 
+	void PrintNodeInfo();
+	void WriteNodeInfo();
 
 private:
 	// User stuff - Just add what you need to help you write the above functions...
@@ -168,7 +169,7 @@ PuzzleState::TILE PuzzleState::g_start[] =
     TL_14, TL_23, TL_22, TL_21, TL_8, 
     TL_13, TL_12, TL_11, TL_10, TL_9
 
-#elif 1
+#elif 0
 	// ex b -  4 steps
 	TL_1,  TL_2,  TL_3,  TL_4,  TL_5,
     TL_16, TL_17, TL_18, TL_19, TL_6, 
@@ -177,8 +178,13 @@ PuzzleState::TILE PuzzleState::g_start[] =
     TL_13, TL_12, TL_11, TL_10, TL_SPACE
 
 
-#elif 0
-	// ex c -  steps
+#elif 1
+	// ex c -  12000 steps
+	TL_1,  TL_3,  TL_4,  TL_19, TL_5,
+	TL_16, TL_2,  TL_18, TL_6,  TL_7,
+	TL_24, TL_17, TL_20, TL_21, TL_8,
+	TL_15, TL_14, TL_22, TL_11, TL_10,
+	TL_13, TL_23, TL_12, TL_9,  TL_SPACE
 
 
 #elif 0
@@ -215,7 +221,36 @@ void PuzzleState::PrintNodeInfo()
 	cout<<setw(3)<<tiles[10]<<setw(3)<<tiles[11]<<setw(3)<<tiles[12]<<setw(3)<<tiles[13]<<setw(3)<<tiles[14]<<endl;
 	cout<<setw(3)<<tiles[15]<<setw(3)<<tiles[16]<<setw(3)<<tiles[17]<<setw(3)<<tiles[18]<<setw(3)<<tiles[19]<<endl;
 	cout<<setw(3)<<tiles[20]<<setw(3)<<tiles[21]<<setw(3)<<tiles[22]<<setw(3)<<tiles[23]<<setw(3)<<tiles[24]<<endl;
+	
+	int x,y;
+
+	for( y=0; y<BOARD_HEIGHT; y++ )
+	{
+		for( x=0; x<BOARD_WIDTH; x++ )
+		{
+			if( tiles[(y*BOARD_WIDTH)+x] == TL_SPACE )
+			{
+				// 记录空白格运动路径
+				Move.push_back(make_pair(x, y));
+			}
+		}
+	}
+	
 }
+
+// 输出节点信息到文件
+void PuzzleState::WriteNodeInfo()
+{
+	ofstream out("24puzzle_start.txt");
+	out<<tiles[0]<<" "<<tiles[1]<<" "<<tiles[2]<<" "<<tiles[3]<<" "<<tiles[4]<<" ";
+	out<<tiles[5]<<" "<<tiles[6]<<" "<<tiles[7]<<" "<<tiles[8]<<" "<<tiles[9]<<" ";
+	out<<tiles[10]<<" "<<tiles[11]<<" "<<tiles[12]<<" "<<tiles[13]<<" "<<tiles[14]<<" ";
+	out<<tiles[15]<<" "<<tiles[16]<<" "<<tiles[17]<<" "<<tiles[18]<<" "<<tiles[19]<<" ";
+	out<<tiles[20]<<" "<<tiles[21]<<" "<<tiles[22]<<" "<<tiles[23]<<" "<<tiles[24]<<endl;
+}
+
+
+
 
 // Here's the heuristic function that estimates the distance from a PuzzleState
 // to the Goal. 
@@ -518,9 +553,6 @@ bool PuzzleState::GetSuccessors( AStarSearch<PuzzleState> *astarsearch, PuzzleSt
 	int sp_x,sp_y;
 
 	GetSpacePosition( this, &sp_x, &sp_y );
-	
-	// 记录空白格运动路径
-	Move.push_back(make_pair(sp_x,sp_y));
 
 	bool ret;
 
@@ -671,8 +703,11 @@ int main( int argc, char *argv[] )
 
 #if DISPLAY_SOLUTION_FORWARDS	// 显示前向步骤
 			cout<<"初始状态："<<endl;
-			node->PrintNodeInfo();
+			node->PrintNodeInfo();	// 输出到终端
 			cout<<endl;
+			
+			node->WriteNodeInfo();	// 输出到文件
+			
 #endif
 			cout << "前向步骤：\n";
 			// 搜索下一个节点
@@ -759,10 +794,21 @@ int main( int argc, char *argv[] )
 			// 加入终点
 			Move.push_back(make_pair(2,2));
 			
+			int len_Move = Move.size();
+			
+			// 输出到文件
+			ofstream out("24puzzle_move.txt");
+			
 			// 输出空白格运动路径
-			for(itrMove = Move.begin(); itrMove != Move.end(); itrMove++)
+			for(int i=0; i<len_Move-3; i++)
 			{
-				cout<<itrMove->first<<" "<<itrMove->second<<endl;
+				int r1 = Move[i].first;
+				int c1 = Move[i].second;
+				int r2 = Move[i+1].first;
+				int c2 = Move[i+1].second;
+				
+				// cout<<"第"<<i<<"次移动：("<<r1<<","<<c1<<") -> ("<<r2<<","<<c2<<")"<<endl;
+				out<<r1<<" "<<c1<<" "<<r2<<" "<<c2<<endl;
 			}
 	}
 
