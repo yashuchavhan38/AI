@@ -24,6 +24,8 @@ using namespace std;
 #define DISPLAY_SOLUTION_BACKWARDS 0	// 显示后向步骤
 #define DISPLAY_SOLUTION_INFO 1
 #define DEBUG_LISTS 0					// 显示 DEBUG 列表
+#define SPIRAL 1	// 目标状态：螺旋
+#define NORMAL 0 	// 目标状态：普通
 
 // Astar 搜索类
 #include "stlastar.h" // 查看头文件来获取版权信息和使用信息
@@ -135,6 +137,7 @@ public:
 	
 	void PrintNodeInfo();
 	void WriteNodeInfo();
+	void WriteDream();
 
 private:
 	// User stuff - Just add what you need to help you write the above functions...
@@ -150,11 +153,23 @@ private:
 // 目标状态
 PuzzleState::TILE PuzzleState::g_goal[] = 
 {
+	
+#if SPIRAL	// 螺旋
 	TL_1,  TL_2,  TL_3,  TL_4,  TL_5,
     TL_16, TL_17, TL_18, TL_19, TL_6, 
     TL_15, TL_24, TL_SPACE, TL_20, TL_7, 
     TL_14, TL_23, TL_22, TL_21, TL_8, 
     TL_13, TL_12, TL_11, TL_10, TL_9
+	
+#elif  NORMAL	// 普通
+	TL_1, TL_2, TL_3, TL_4, TL_5,
+	TL_6, TL_7, TL_8, TL_9, TL_10,
+	TL_11,TL_12, TL_13,TL_14, TL_15,
+	TL_16,TL_17, TL_18, TL_19, TL_20,
+	TL_21, TL_22, TL_23, TL_24, TL_SPACE
+	
+#endif
+
 };
 
 // 一些好的初始状态
@@ -162,7 +177,7 @@ PuzzleState::TILE PuzzleState::g_start[] =
 {
 
 #if 0
-	// ex a -  2 steps
+	// 螺旋 a - 2 steps 
 	TL_1,  TL_2,  TL_3,  TL_4,  TL_5,
     TL_16, TL_17, TL_18, TL_19, TL_6, 
     TL_15, TL_24, TL_20, TL_7, TL_SPACE,
@@ -170,7 +185,7 @@ PuzzleState::TILE PuzzleState::g_start[] =
     TL_13, TL_12, TL_11, TL_10, TL_9
 
 #elif 0
-	// ex b -  4 steps
+	// 螺旋 b -  4 steps
 	TL_1,  TL_2,  TL_3,  TL_4,  TL_5,
     TL_16, TL_17, TL_18, TL_19, TL_6, 
     TL_15, TL_24, TL_20, TL_7, TL_8,
@@ -179,7 +194,7 @@ PuzzleState::TILE PuzzleState::g_start[] =
 
 
 #elif 1
-	// ex c -  12000 steps
+	// 螺旋 c -  52 steps
 	TL_1,  TL_3,  TL_4,  TL_19, TL_5,
 	TL_16, TL_2,  TL_18, TL_6,  TL_7,
 	TL_24, TL_17, TL_20, TL_21, TL_8,
@@ -188,8 +203,36 @@ PuzzleState::TILE PuzzleState::g_start[] =
 
 
 #elif 0
-	// nasty one - doesn't solve
+	// 正常 a - 2 steps
+	TL_1, TL_2, TL_3, TL_4, TL_5,
+	TL_6, TL_7, TL_8, TL_9, TL_10,
+	TL_11,TL_12, TL_13,TL_14, TL_15,
+	TL_16,TL_17, TL_18, TL_19, TL_20,
+	TL_21, TL_22, TL_SPACE, TL_23, TL_24
 
+#elif 0
+	// 正常 b - 8 steps
+	TL_1, TL_3, TL_SPACE, TL_4, TL_5,
+	TL_6, TL_2, TL_8, TL_9, TL_10,
+	TL_11,TL_7, TL_12,TL_14, TL_15,
+	TL_16,TL_17, TL_13, TL_19, TL_20,
+	TL_21, TL_22, TL_18, TL_23, TL_24
+
+#elif 0
+	// 正常 c - 30 steps
+	TL_SPACE, TL_2, TL_8, TL_4, TL_5,
+	TL_3, TL_1, TL_9, TL_10, TL_15,
+	TL_6,TL_7, TL_13,TL_14, TL_20,
+	TL_12,TL_22, TL_16, TL_17, TL_24,
+	TL_11, TL_21, TL_18, TL_19, TL_23
+	
+#elif 0
+	// 正常 d - 38 steps 
+	TL_2, TL_8, TL_4, TL_5, TL_15,
+	TL_3, TL_1, TL_9, TL_10, TL_20,
+	TL_6,TL_7, TL_SPACE,TL_13, TL_14,
+	TL_12,TL_22, TL_16, TL_17, TL_24,
+	TL_11, TL_21, TL_18, TL_19, TL_23
 
 #endif  
 
@@ -231,17 +274,19 @@ void PuzzleState::PrintNodeInfo()
 			if( tiles[(y*BOARD_WIDTH)+x] == TL_SPACE )
 			{
 				// 记录空白格运动路径
-				Move.push_back(make_pair(x, y));
+				Move.push_back(make_pair(y, x));
 			}
 		}
 	}
 	
 }
 
+
+ofstream out("data.txt");
+
 // 输出节点信息到文件
 void PuzzleState::WriteNodeInfo()
 {
-	ofstream out("24puzzle_start.txt");
 	out<<tiles[0]<<" "<<tiles[1]<<" "<<tiles[2]<<" "<<tiles[3]<<" "<<tiles[4]<<" ";
 	out<<tiles[5]<<" "<<tiles[6]<<" "<<tiles[7]<<" "<<tiles[8]<<" "<<tiles[9]<<" ";
 	out<<tiles[10]<<" "<<tiles[11]<<" "<<tiles[12]<<" "<<tiles[13]<<" "<<tiles[14]<<" ";
@@ -249,7 +294,15 @@ void PuzzleState::WriteNodeInfo()
 	out<<tiles[20]<<" "<<tiles[21]<<" "<<tiles[22]<<" "<<tiles[23]<<" "<<tiles[24]<<endl;
 }
 
-
+// 输出普通型目标状态
+void PuzzleState::WriteDream()
+{
+	for(int i=0; i<BOARD_WIDTH * BOARD_HEIGHT; i++)
+	{
+		out<<this->g_goal[i]<<" ";
+	}
+	out<<endl;
+}
 
 
 // Here's the heuristic function that estimates the distance from a PuzzleState
@@ -258,6 +311,8 @@ void PuzzleState::WriteNodeInfo()
 
 float PuzzleState::GoalDistanceEstimate( PuzzleState &nodeGoal )
 {
+
+#if SPIRAL // 螺旋启发式分数
 
 	// Nilsson's sequence score 尼尔森序列分数
 
@@ -449,8 +504,6 @@ float PuzzleState::GoalDistanceEstimate( PuzzleState &nodeGoal )
 			// clockwise_tile_of[i]是索引为i的方块顺时针方向上第一个方块
 			s += 2;
 		}
-
-
 	}
 
 	// mult by 3 and add to h
@@ -459,6 +512,95 @@ float PuzzleState::GoalDistanceEstimate( PuzzleState &nodeGoal )
 	
 	return (float) t;	// 返回当前节点的启发式分数 h
 
+
+	
+#elif NORMAL	// 普通启发式函数
+
+	int i, cx, cy, ax, ay;	// i: 迭代器 cx,cy: 方块目标位置 ax,ay: 方块当前位置
+	int h = 0;	// 启发式分数
+	
+	// 方块的目标位置的x坐标
+	int tile_x[ BOARD_WIDTH * BOARD_HEIGHT ] =
+	{
+		/* TL_SPACE */ 4,
+		/* TL_1 */ 0,    
+		/* TL_2 */ 1,    
+		/* TL_3 */ 2,    
+		/* TL_4 */ 3,    
+		/* TL_5 */ 4,    
+		/* TL_6 */ 0,    
+		/* TL_7 */ 1,    
+		/* TL_8 */ 2,    
+		/* TL_9 */ 3,
+		/* TL_10 */ 4,
+		/* TL_11 */ 0,
+		/* TL_12 */ 1,
+		/* TL_13 */ 2,
+		/* TL_14 */ 3,
+		/* TL_15 */ 4,
+		/* TL_16 */ 0,
+		/* TL_17 */ 1,
+		/* TL_18 */ 2,
+		/* TL_19 */ 3,
+		/* TL_20 */ 4,
+		/* TL_21 */ 0,
+		/* TL_22 */ 1,
+		/* TL_23 */ 2,
+		/* TL_24 */ 3
+	};
+
+	// 方块的目标位置的y坐标
+	int tile_y[ BOARD_WIDTH * BOARD_HEIGHT ] =
+	{
+		/* TL_SPACE */ 4,
+		/* TL_1 */ 0,    
+		/* TL_2 */ 0,    
+		/* TL_3 */ 0,    
+		/* TL_4 */ 0,    
+		/* TL_5 */ 0,    
+		/* TL_6 */ 1,    
+		/* TL_7 */ 1,    
+		/* TL_8 */ 1,    
+		/* TL_9 */ 1,
+		/* TL_10 */ 1,
+		/* TL_11 */ 2,
+		/* TL_12 */ 2,
+		/* TL_13 */ 2,
+		/* TL_14 */ 2,
+		/* TL_15 */ 2,
+		/* TL_16 */ 3,
+		/* TL_17 */ 3,
+		/* TL_18 */ 3,
+		/* TL_19 */ 3,
+		/* TL_20 */ 3,
+		/* TL_21 */ 4,
+		/* TL_22 */ 4,
+		/* TL_23 */ 4,
+		/* TL_24 */ 4
+	};
+	
+	for( i=0; i<(BOARD_HEIGHT*BOARD_WIDTH); i++ )
+	{
+		// 累计启发式分数
+
+		// get correct x and y of this tile	
+		// 获取该方块的目标位置
+		cx = tile_x[tiles[i]];
+		cy = tile_y[tiles[i]];
+
+		// get actual	
+		ax = i % BOARD_WIDTH;
+		ay = i / BOARD_WIDTH;
+
+		// add manhatten distance to h
+		// 计算 manhatten 距离加到 h 上
+		h += abs( cx-ax );
+		h += abs( cy-ay );
+	}
+	
+	return (float)h;
+	
+#endif
 }
 
 
@@ -706,7 +848,8 @@ int main( int argc, char *argv[] )
 			node->PrintNodeInfo();	// 输出到终端
 			cout<<endl;
 			
-			node->WriteNodeInfo();	// 输出到文件
+			node->WriteDream();		// 输出目标状态
+			node->WriteNodeInfo();	// 输出初始状态
 			
 #endif
 			cout << "前向步骤：\n";
@@ -796,8 +939,6 @@ int main( int argc, char *argv[] )
 			
 			int len_Move = Move.size();
 			
-			// 输出到文件
-			ofstream out("24puzzle_move.txt");
 			
 			// 输出空白格运动路径
 			for(int i=0; i<len_Move-3; i++)
@@ -808,7 +949,7 @@ int main( int argc, char *argv[] )
 				int c2 = Move[i+1].second;
 				
 				// cout<<"第"<<i<<"次移动：("<<r1<<","<<c1<<") -> ("<<r2<<","<<c2<<")"<<endl;
-				out<<r1<<" "<<c1<<" "<<r2<<" "<<c2<<endl;
+				out<<r2<<" "<<c2<<" "<<r1<<" "<<c1<<endl;
 			}
 	}
 
