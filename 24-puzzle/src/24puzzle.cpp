@@ -24,8 +24,8 @@ using namespace std;
 #define DISPLAY_SOLUTION_BACKWARDS 0	// 显示后向步骤
 #define DISPLAY_SOLUTION_INFO 1
 #define DEBUG_LISTS 0					// 显示 DEBUG 列表
-#define SPIRAL 1	// 目标状态：螺旋
-#define NORMAL 0 	// 目标状态：普通
+#define SPIRAL 0	// 目标状态：螺旋
+#define NORMAL 1 	// 目标状态：普通
 
 // Astar 搜索类
 #include "stlastar.h" // 查看头文件来获取版权信息和使用信息
@@ -193,7 +193,7 @@ PuzzleState::TILE PuzzleState::g_start[] =
     TL_13, TL_12, TL_11, TL_10, TL_SPACE
 
 
-#elif 1
+#elif 0
 	// 螺旋 c -  52 steps
 	TL_1,  TL_3,  TL_4,  TL_19, TL_5,
 	TL_16, TL_2,  TL_18, TL_6,  TL_7,
@@ -226,7 +226,7 @@ PuzzleState::TILE PuzzleState::g_start[] =
 	TL_12,TL_22, TL_16, TL_17, TL_24,
 	TL_11, TL_21, TL_18, TL_19, TL_23
 	
-#elif 0
+#elif 1
 	// 正常 d - 38 steps 
 	TL_2, TL_8, TL_4, TL_5, TL_15,
 	TL_3, TL_1, TL_9, TL_10, TL_20,
@@ -743,7 +743,7 @@ float PuzzleState::GetCost( PuzzleState &successor )
 
 int main( int argc, char *argv[] )
 {	
-	cout << "A* 24-puzzle solver implementation\n@2016 Shengjia Yan\n";
+	cout << "A* 24-puzzle solver implementation\n@2016 严晟嘉 & 朴智新\n";
 
 	if( argc > 1 )
 	{
