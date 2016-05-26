@@ -14,7 +14,7 @@ using namespace std;
 
 const int C[]={30,50,80,100}; 
 
-ll n = 10000;		 		// 皇后数量
+ll n = 3000000;		 		// 皇后数量
 
 #if LOCATION
 	FILE *out0=fopen("million_queen_location.txt","w");	// 保存符合条件的 N 皇后的位置
