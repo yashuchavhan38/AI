@@ -1,2 +1,2 @@
 # artificial-intelligence
-SEU Aritificial Intelligence Assignments & Docs
+SEU Aritificial Intelligence Projects
