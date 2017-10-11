@@ -1,4 +1,4 @@
-# artificial-intelligence
+# SEU CSE <Artificial Intelligence> Projects
 SEU Aritificial Intelligence Projects include 4 different tasks:
 * 24 puzzle
 * genetic algorithm for functional maxmun problem
