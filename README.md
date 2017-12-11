@@ -4,3 +4,5 @@ SEU Aritificial Intelligence Projects include 4 different tasks:
 * genetic algorithm for functional maxmun problem
 * million queens
 * neural networks for face recognition
+
+If you have any question, please feel free to contact me (i@yanshengjia.com).
