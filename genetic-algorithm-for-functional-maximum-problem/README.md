@@ -1,16 +1,14 @@
-# 基于遗传算法的优化问题求解
+# Genetic Algorithm for Functional Maximum Problem
 
-人工智能课第二次作业
+### Description
 
-### 问题
+Find out the maximum value of the function *f(x)=x+10sin(5x)+7cos(4x)* in the range [0, 9].
 
-求解函数 f(x)=x+10sin(5x)+7cos(4x) 在区间[0,9]的极大值
+### Approach
 
-### 方法
+Genetic Algorithm
 
-遗传算法
-
-### 答案
+### Ground Truth
 
 24.8553627239529
 x = 7.857

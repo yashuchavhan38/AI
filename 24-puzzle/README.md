@@ -1,11 +1,9 @@
-# 24数码问题
+# 24 Puzzle
 
-人工智能课第三次作业
+### Description
 
-### 问题描述
+Solve 24 puzzle problem.
 
-求解24数码问题
+### Approach
 
-### 方法
-
-启发式搜索
+Heuristic Search
