@@ -14,11 +14,12 @@
 
 ## Usage
 
-```shell
+```
 $ cd project-path
 $ make
 $ ./facetrain
 ```
+
 
 需要修改  **.list **文件中图片路径，以让程序能正确读取输入数据。
 
