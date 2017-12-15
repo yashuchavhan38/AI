@@ -2,7 +2,7 @@
 
 ### Description
 
-Solve 24 puzzle problem.
+Solve 24 puzzle problem
 
 ### Approach
 
