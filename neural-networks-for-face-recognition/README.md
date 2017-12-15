@@ -14,7 +14,7 @@
 
 ## Usage
 
-```
+```shell
 $ cd project-path
 $ make
 $ ./facetrain
