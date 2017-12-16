@@ -10,7 +10,9 @@
 
 [face images](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-8/faceimages/faces.tar.Z)
 
-数据集中包含20个子文件夹，每个文件夹包含1个人，一共20人。图片的名称包含了这张图片的 userid, sunglass, pose, expression, scale 的信息。
+数据集中包含20个子文件夹，每个文件夹包含1个人，一共20人。
+
+图片的名称包含了这张图片的 userid, sunglass, pose, expression, scale 的信息。
 
 ## Usage
 
