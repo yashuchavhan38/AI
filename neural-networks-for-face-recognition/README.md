@@ -15,9 +15,9 @@
 ## Usage
 
 ```shell
-$ cd project-path
-$ make
-$ ./facetrain
+> cd project-path
+> make
+> ./facetrain
 ```
 
 
