@@ -1,15 +1,15 @@
-% ¼ÆËãÖÖÈº¸öÌåÊÊÓ¦¶È£¬¶Ô²»Í¬µÄÓÅ»¯Ä¿±ê£¬ĞŞ¸ÄÏÂÃæµÄº¯Êı
-% population_size: ÖÖÈº´óĞ¡
-% chromosome_size: È¾É«Ìå³¤¶È
+% è®¡ç®—ç§ç¾¤ä¸ªä½“é€‚åº”åº¦ï¼Œå¯¹ä¸åŒçš„ä¼˜åŒ–ç›®æ ‡ï¼Œä¿®æ”¹ä¸‹é¢çš„å‡½æ•°
+% population_size: ç§ç¾¤å¤§å°
+% chromosome_size: æŸ“è‰²ä½“é•¿åº¦
 
 function fitness(population_size, chromosome_size)
 global fitness_value;
 global population;
 
-upper_bound = 9;    % ×Ô±äÁ¿µÄÇø¼äÉÏÏŞ
-lower_bound = 0;    % ×Ô±äÁ¿µÄÇø¼äÏÂÏŞ
+upper_bound = 9;    % è‡ªå˜é‡çš„åŒºé—´ä¸Šé™
+lower_bound = 0;    % è‡ªå˜é‡çš„åŒºé—´ä¸‹é™
 
-% ËùÓĞÖÖÈº¸öÌåÊÊÓ¦¶È³õÊ¼»¯Îª0
+% æ‰€æœ‰ç§ç¾¤ä¸ªä½“é€‚åº”åº¦åˆå§‹åŒ–ä¸º0
 for i=1:population_size
     fitness_value(i) = 0.;    
 end
@@ -18,11 +18,11 @@ end
 for i=1:population_size
     for j=1:chromosome_size
         if population(i,j) == 1
-            fitness_value(i) = fitness_value(i)+2^(j-1);    % population[i]È¾É«Ìå´®ºÍÊµ¼ÊµÄ×Ô±äÁ¿xi¶ş½øÖÆ´®Ë³ĞòÊÇÏà·´µÄ
+            fitness_value(i) = fitness_value(i)+2^(j-1);    % population[i]æŸ“è‰²ä½“ä¸²å’Œå®é™…çš„è‡ªå˜é‡xiäºŒè¿›åˆ¶ä¸²é¡ºåºæ˜¯ç›¸åçš„
         end        
     end
-    fitness_value(i) = lower_bound + fitness_value(i)*(upper_bound-lower_bound)/(2^chromosome_size-1);  % ×Ô±äÁ¿xi¶ş½øÖÆ×ªÊ®½øÖÆ
-    fitness_value(i) = fitness_value(i) + 10*sin(5*fitness_value(i)) + 7*cos(4*fitness_value(i));  % ¼ÆËã×Ô±äÁ¿xiµÄÊÊÓ¦¶Èº¯ÊıÖµ
+    fitness_value(i) = lower_bound + fitness_value(i)*(upper_bound-lower_bound)/(2^chromosome_size-1);  % è‡ªå˜é‡xiäºŒè¿›åˆ¶è½¬åè¿›åˆ¶
+    fitness_value(i) = fitness_value(i) + 10*sin(5*fitness_value(i)) + 7*cos(4*fitness_value(i));  % è®¡ç®—è‡ªå˜é‡xiçš„é€‚åº”åº¦å‡½æ•°å€¼
 end
 
 clear i;

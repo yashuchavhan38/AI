@@ -1,29 +1,29 @@
 % Genetic Algorithm for Functional Maximum Problem
-% f(x) = x+10*sin(5*x)+7*cos(4*x), x¡Ê[0,9]
+% f(x) = x+10*sin(5*x)+7*cos(4*x), xâˆˆ[0,9]
 % Created by Shengjia Yan @2016/4/26
 
-% population_size: ÊäÈëÖÖÈº´óĞ¡
-% chromosome_size: ÊäÈëÈ¾É«Ìå³¤¶È
-% generation_size: ÊäÈëµü´ú´ÎÊı
-% cross_rate: ÊäÈë½»²æ¸ÅÂÊ
-% mutate_rate: ÊäÈë±äÒì¸ÅÂÊ
-% elitism: ÊäÈëÊÇ·ñ¾«Ó¢Ñ¡Ôñ
-% m: Êä³ö×î¼Ñ¸öÌå
-% n: Êä³ö×î¼ÑÊÊÓ¦¶È
-% p: Êä³ö×î¼Ñ¸öÌå³öÏÖµü´ú´ÎÊı
-% q: Êä³ö×î¼Ñ¸öÌå×Ô±äÁ¿Öµ
+% population_size: è¾“å…¥ç§ç¾¤å¤§å°
+% chromosome_size: è¾“å…¥æŸ“è‰²ä½“é•¿åº¦
+% generation_size: è¾“å…¥è¿­ä»£æ¬¡æ•°
+% cross_rate: è¾“å…¥äº¤å‰æ¦‚ç‡
+% mutate_rate: è¾“å…¥å˜å¼‚æ¦‚ç‡
+% elitism: è¾“å…¥æ˜¯å¦ç²¾è‹±é€‰æ‹©
+% m: è¾“å‡ºæœ€ä½³ä¸ªä½“
+% n: è¾“å‡ºæœ€ä½³é€‚åº”åº¦
+% p: è¾“å‡ºæœ€ä½³ä¸ªä½“å‡ºç°è¿­ä»£æ¬¡æ•°
+% q: è¾“å‡ºæœ€ä½³ä¸ªä½“è‡ªå˜é‡å€¼
 function [m,n,p,q] = genetic_algorithm(population_size, chromosome_size, generation_size, cross_rate, mutate_rate, elitism)
 
-global G ;              % µ±Ç°µü´ú´ÎÊı
-global fitness_value;   % µ±Ç°´úÊÊÓ¦¶È¾ØÕó
-global best_fitness;    % Àú´ú×î¼ÑÊÊÓ¦Öµ
-global fitness_average; % Àú´úÆ½¾ùÊÊÓ¦Öµ¾ØÕó
-global best_individual; % Àú´ú×î¼Ñ¸öÌå
-global best_generation; % ×î¼Ñ¸öÌå³öÏÖ´ú
-upper_bound = 9;        % ×Ô±äÁ¿µÄÇø¼äÉÏÏŞ
-lower_bound = 0;        % ×Ô±äÁ¿µÄÇø¼äÏÂÏŞ
+global G ;              % å½“å‰è¿­ä»£æ¬¡æ•°
+global fitness_value;   % å½“å‰ä»£é€‚åº”åº¦çŸ©é˜µ
+global best_fitness;    % å†ä»£æœ€ä½³é€‚åº”å€¼
+global fitness_average; % å†ä»£å¹³å‡é€‚åº”å€¼çŸ©é˜µ
+global best_individual; % å†ä»£æœ€ä½³ä¸ªä½“
+global best_generation; % æœ€ä½³ä¸ªä½“å‡ºç°ä»£
+upper_bound = 9;        % è‡ªå˜é‡çš„åŒºé—´ä¸Šé™
+lower_bound = 0;        % è‡ªå˜é‡çš„åŒºé—´ä¸‹é™
 
-fitness_average = zeros(generation_size,1); % ½« generation_size*1 µÄÁã¾ØÕó¸³¸ø fitness_average
+fitness_average = zeros(generation_size,1); % å°† generation_size*1 çš„é›¶çŸ©é˜µèµ‹ç»™ fitness_average
 
 disp [ysj genetic algorithm]
 
@@ -31,30 +31,30 @@ fitness_value(population_size) = 0.;
 best_fitness = 0.;
 best_generation = 0;
 
-init(population_size, chromosome_size); % ³õÊ¼»¯
+init(population_size, chromosome_size); % åˆå§‹åŒ–
 
 for G=1:generation_size   
-    fitness(population_size, chromosome_size);              % ¼ÆËãÊÊÓ¦¶È 
-    rank(population_size, chromosome_size);                 % ¶Ô¸öÌå°´ÊÊÓ¦¶È´óĞ¡½øĞĞÅÅĞò
-    selection(population_size, chromosome_size, elitism);   % Ñ¡Ôñ²Ù×÷
-    crossover(population_size, chromosome_size, cross_rate);% ½»²æ²Ù×÷
-    mutation(population_size, chromosome_size, mutate_rate);% ±äÒì²Ù×÷
+    fitness(population_size, chromosome_size);              % è®¡ç®—é€‚åº”åº¦ 
+    rank(population_size, chromosome_size);                 % å¯¹ä¸ªä½“æŒ‰é€‚åº”åº¦å¤§å°è¿›è¡Œæ’åº
+    selection(population_size, chromosome_size, elitism);   % é€‰æ‹©æ“ä½œ
+    crossover(population_size, chromosome_size, cross_rate);% äº¤å‰æ“ä½œ
+    mutation(population_size, chromosome_size, mutate_rate);% å˜å¼‚æ“ä½œ
 end
 
-plotGA(generation_size);% ´òÓ¡Ëã·¨µü´ú¹ı³Ì
+plotGA(generation_size);% æ‰“å°ç®—æ³•è¿­ä»£è¿‡ç¨‹
 
-m = best_individual;    % »ñµÃ×î¼Ñ¸öÌå
-n = best_fitness;       % »ñµÃ×î¼ÑÊÊÓ¦¶È
-p = best_generation;    % »ñµÃ×î¼Ñ¸öÌå³öÏÖÊ±µÄµü´ú´ÎÊı
+m = best_individual;    % è·å¾—æœ€ä½³ä¸ªä½“
+n = best_fitness;       % è·å¾—æœ€ä½³é€‚åº”åº¦
+p = best_generation;    % è·å¾—æœ€ä½³ä¸ªä½“å‡ºç°æ—¶çš„è¿­ä»£æ¬¡æ•°
 
-% »ñµÃ×î¼Ñ¸öÌå±äÁ¿Öµ£¬¶Ô²»Í¬µÄÓÅ»¯Ä¿±ê£¬ÕâÀïĞèÒªĞŞ¸Ä
+% è·å¾—æœ€ä½³ä¸ªä½“å˜é‡å€¼ï¼Œå¯¹ä¸åŒçš„ä¼˜åŒ–ç›®æ ‡ï¼Œè¿™é‡Œéœ€è¦ä¿®æ”¹
 q = 0.;
 for j=1:chromosome_size
     if best_individual(j) == 1
-            q = q+2^(j-1);  % ×î¼Ñ¸öÌå±äÁ¿¶ş½øÖÆ×ªÊ®½øÖÆ
+            q = q+2^(j-1);  % æœ€ä½³ä¸ªä½“å˜é‡äºŒè¿›åˆ¶è½¬åè¿›åˆ¶
     end 
 end
-q = lower_bound + q*(upper_bound-lower_bound)/(2^chromosome_size-1); % ½âÂë
+q = lower_bound + q*(upper_bound-lower_bound)/(2^chromosome_size-1); % è§£ç 
 
 clear i;
 clear j;

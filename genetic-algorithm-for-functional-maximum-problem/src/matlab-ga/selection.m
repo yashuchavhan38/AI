@@ -1,21 +1,21 @@
-% ÂÖÅÌ¶ÄÑ¡Ôñ²Ù×÷
-% population_size: ÖÖÈº´óĞ¡
-% chromosome_size: È¾É«Ìå³¤¶È
-% elitism: ÊÇ·ñ¾«Ó¢Ñ¡Ôñ
+% è½®ç›˜èµŒé€‰æ‹©æ“ä½œ
+% population_size: ç§ç¾¤å¤§å°
+% chromosome_size: æŸ“è‰²ä½“é•¿åº¦
+% elitism: æ˜¯å¦ç²¾è‹±é€‰æ‹©
 
 function selection(population_size, chromosome_size, elitism)
-global population;      % Ç°´úÖÖÈº
-global population_new;  % ĞÂÒ»´úÖÖÈº
-global fitness_sum;   % ÖÖÈº»ıÀÛÊÊÓ¦¶È
+global population;      % å‰ä»£ç§ç¾¤
+global population_new;  % æ–°ä¸€ä»£ç§ç¾¤
+global fitness_sum;   % ç§ç¾¤ç§¯ç´¯é€‚åº”åº¦
 
 for i=1:population_size
-    r = rand * fitness_sum(population_size);  % Éú³ÉÒ»¸öËæ»úÊı£¬ÔÚ[0,×ÜÊÊÓ¦¶È]Ö®¼ä
+    r = rand * fitness_sum(population_size);  % ç”Ÿæˆä¸€ä¸ªéšæœºæ•°ï¼Œåœ¨[0,æ€»é€‚åº”åº¦]ä¹‹é—´
     first = 1;
     last = population_size;
     mid = round((last+first)/2);
     idx = -1;
     
-    % ÅÅÖĞ·¨Ñ¡Ôñ¸öÌå
+    % æ’ä¸­æ³•é€‰æ‹©ä¸ªä½“
     while (first <= last) && (idx == -1) 
         if r > fitness_sum(mid)
             first = mid;
@@ -32,13 +32,13 @@ for i=1:population_size
         end
     end
    
-   % ²úÉúĞÂÒ»´ú¸öÌå
+   % äº§ç”Ÿæ–°ä¸€ä»£ä¸ªä½“
    for j=1:chromosome_size
         population_new(i,j) = population(idx,j);
    end
 end
 
-% ÊÇ·ñ¾«Ó¢Ñ¡Ôñ
+% æ˜¯å¦ç²¾è‹±é€‰æ‹©
 if elitism
     p = population_size-1;
 else
@@ -47,7 +47,7 @@ end
 
 for i=1:p
    for j=1:chromosome_size
-       % Èç¹û¾«Ó¢Ñ¡Ôñ£¬½«populationÖĞÇ°population_size-1¸ö¸öÌå¸üĞÂ£¬×îºóÒ»¸ö×îÓÅ¸öÌå±£Áô
+       % å¦‚æœç²¾è‹±é€‰æ‹©ï¼Œå°†populationä¸­å‰population_size-1ä¸ªä¸ªä½“æ›´æ–°ï¼Œæœ€åä¸€ä¸ªæœ€ä¼˜ä¸ªä½“ä¿ç•™
        population(i,j) = population_new(i,j);
    end
 end

@@ -1,23 +1,23 @@
-% ÉèÖÃÒÅ´«Ëã·¨µÄ²ÎÊı£¬²âÊÔĞ§¹û
-% Éè¶¨Çó½â¾«¶ÈÎªĞ¡Êıµãºó4Î»
+% è®¾ç½®é—ä¼ ç®—æ³•çš„å‚æ•°ï¼Œæµ‹è¯•æ•ˆæœ
+% è®¾å®šæ±‚è§£ç²¾åº¦ä¸ºå°æ•°ç‚¹å4ä½
 
 function test()
-elitism = true;             % Ñ¡Ôñ¾«Ó¢²Ù×÷
-population_size = 100;      % ÖÖÈº´óĞ¡
-chromosome_size = 17;       % È¾É«Ìå³¤¶È
-generation_size = 200;      % ×î´óµü´ú´ÎÊı
-cross_rate = 0.6;           % ½»²æ¸ÅÂÊ
-mutate_rate = 0.01;         % ±äÒì¸ÅÂÊ
+elitism = true;             % é€‰æ‹©ç²¾è‹±æ“ä½œ
+population_size = 100;      % ç§ç¾¤å¤§å°
+chromosome_size = 17;       % æŸ“è‰²ä½“é•¿åº¦
+generation_size = 200;      % æœ€å¤§è¿­ä»£æ¬¡æ•°
+cross_rate = 0.6;           % äº¤å‰æ¦‚ç‡
+mutate_rate = 0.01;         % å˜å¼‚æ¦‚ç‡
 
 [best_individual,best_fitness,iterations,x] = genetic_algorithm(population_size, chromosome_size, generation_size, cross_rate, mutate_rate,elitism);
 
-disp ×îÓÅ¸öÌå:
+disp æœ€ä¼˜ä¸ªä½“:
 best_individual
-disp ×îÓÅÊÊÓ¦¶È:
+disp æœ€ä¼˜é€‚åº”åº¦:
 best_fitness
-disp ×îÓÅ¸öÌå¶ÔÓ¦×Ô±äÁ¿Öµ:
+disp æœ€ä¼˜ä¸ªä½“å¯¹åº”è‡ªå˜é‡å€¼:
 x
-disp ´ïµ½×îÓÅ½á¹ûµÄµü´ú´ÎÊı:
+disp è¾¾åˆ°æœ€ä¼˜ç»“æœçš„è¿­ä»£æ¬¡æ•°:
 iterations
 
 clear;

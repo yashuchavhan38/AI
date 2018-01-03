@@ -1,13 +1,13 @@
-% ³õÊ¼»¯ÖÖÈº
-% population_size: ÖÖÈº´óĞ¡
-% chromosome_size: È¾É«Ìå³¤¶È
+% åˆå§‹åŒ–ç§ç¾¤
+% population_size: ç§ç¾¤å¤§å°
+% chromosome_size: æŸ“è‰²ä½“é•¿åº¦
 
 function init(population_size, chromosome_size)
 global population;
 for i=1:population_size
     for j=1:chromosome_size
-        % ¸øpopulationµÄiĞĞjÁĞ¸³Öµ
-        population(i,j) = round(rand);  % rand²úÉú(0,1)Ö®¼äµÄËæ»úÊı£¬round()ÊÇËÄÉáÎåÈëº¯Êı
+        % ç»™populationçš„iè¡Œjåˆ—èµ‹å€¼
+        population(i,j) = round(rand);  % randäº§ç”Ÿ(0,1)ä¹‹é—´çš„éšæœºæ•°ï¼Œround()æ˜¯å››èˆäº”å…¥å‡½æ•°
     end
 end
 clear i;
