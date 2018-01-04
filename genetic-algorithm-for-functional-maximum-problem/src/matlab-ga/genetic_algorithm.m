@@ -23,7 +23,7 @@ global best_generation; % 最佳个体出现代
 upper_bound = 9;        % 自变量的区间上限
 lower_bound = 0;        % 自变量的区间下限
 
-fitness_average = zeros(generation_size,1); % 将 generation_size*1 的零矩阵赋给 fitness_average
+fitness_average = zeros(generation_size, 1); % 将 generation_size*1 的零矩阵赋给 fitness_average
 
 disp [ysj genetic algorithm]
 
@@ -34,11 +34,11 @@ best_generation = 0;
 init(population_size, chromosome_size); % 初始化
 
 for G=1:generation_size   
-    fitness(population_size, chromosome_size);              % 计算适应度 
-    rank(population_size, chromosome_size);                 % 对个体按适应度大小进行排序
-    selection(population_size, chromosome_size, elitism);   % 选择操作
-    crossover(population_size, chromosome_size, cross_rate);% 交叉操作
-    mutation(population_size, chromosome_size, mutate_rate);% 变异操作
+    fitness(population_size, chromosome_size);                % 计算适应度 
+    rank(population_size, chromosome_size);                   % 对个体按适应度大小进行排序
+    selection(population_size, chromosome_size, elitism);     % 选择操作
+    crossover(population_size, chromosome_size, cross_rate);  % 交叉操作
+    mutation(population_size, chromosome_size, mutate_rate);  % 变异操作
 end
 
 plotGA(generation_size);% 打印算法迭代过程
