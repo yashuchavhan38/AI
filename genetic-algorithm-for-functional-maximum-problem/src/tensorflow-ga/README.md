@@ -6,6 +6,8 @@ Implemente Genetic Algorithm with Tensorflow to find out the maximum value of th
 
 While TensorFlow isn't really the best for GA's, this example shows that we can implement different procedural algorithms with TensorFlow operations.
 
+![ga_function](https://raw.githubusercontent.com/yanshengjia/photo/master/ga_function.png)
+
 ## Environment
 
 * Tensorflow 1.4.1
