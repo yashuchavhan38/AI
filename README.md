@@ -1,5 +1,5 @@
-# SEU CS AI Projects
-SEU Aritificial Intelligence Projects include 4 different tasks:
+# AI Projects
+Now this repo contains 4 different tasks:
 * 24 puzzle
 * genetic algorithm for functional maximum problem
 * million queens
