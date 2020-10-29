@@ -1,8 +1,19 @@
-# AI Projects
-Now this repo contains 4 different tasks:
-* 24 puzzle
-* genetic algorithm for functional maximum problem
-* million queens
-* neural networks for face recognition
+# Artificial Intelligence (AI)
+
+A project-based Artificial Intelligence (AI) playground.
+
+## Contents
+
+* [24 Puzzle](https://github.com/yanshengjia/artificial-intelligence/tree/master/24-puzzle)
+* [Genetic Algorithm for Functional Maximum Problem](https://github.com/yanshengjia/artificial-intelligence/tree/master/genetic-algorithm-for-functional-maximum-problem)
+* [Million Queens](https://github.com/yanshengjia/artificial-intelligence/tree/master/million-queens)
+* [Neural Networks for Face Recognition](https://github.com/yanshengjia/artificial-intelligence/tree/master/neural-networks-for-face-recognition)
+* Email Spam Filter
+
+## Contribution
+
+Most contributions are welcomed.
+
+## Contacts
 
 If you have any question, please feel free to contact me (i@yanshengjia.com).
