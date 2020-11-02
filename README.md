@@ -2,7 +2,7 @@
 
 A project-based Artificial Intelligence (AI) playground.
 
-## Contents
+## Projects
 
 * [24 Puzzle](https://github.com/yanshengjia/artificial-intelligence/tree/master/24-puzzle)
 * [Email Spam Filter](https://github.com/yanshengjia/artificial-intelligence/tree/master/email-spam-filter)
