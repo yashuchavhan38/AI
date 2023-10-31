@@ -1,5 +1,4 @@
 # Genetic Algorithm Optimization in TensorFlow
-
 ## Description
 
 Implemente Genetic Algorithm with Tensorflow to find out the maximum value of the function *f(x)=x+10sin(5x)+7cos(4x)* in the range [0, 9].
