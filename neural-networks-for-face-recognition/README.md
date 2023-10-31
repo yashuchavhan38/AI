@@ -2,7 +2,7 @@
 
 ## Description
 
-基于人工神经网络和反向传播算法来识别人脸的特征。
+Face recognition using the neural networks
 
 这个项目是 CMU 15-681 Machine Learning 的一次课程[作业](http://www.cs.cmu.edu/afs/cs.cmu.edu/user/mitchell/ftp/faces.html)。
 
