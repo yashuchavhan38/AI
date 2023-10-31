@@ -40,4 +40,4 @@ facetrain的具体用法请参考 doc/ysjai01.pdf，同时这份文档也详细�
 ## References
 
 * [Neural Networks for Face Recognition](http://www.cs.cmu.edu/afs/cs.cmu.edu/user/mitchell/ftp/faces.html)
-* [Machine Learning](http://www.cs.cmu.edu/~tom/mlbook.html), Tom Mitchell, McGraw Hill, 1997.
+* [Machine Learning](http://www.cs.cmu.edu/~tom/mlbook.html), Tom Mitchell, McGraw Hill
